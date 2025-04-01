@@ -1,14 +1,20 @@
 from collections import Counter
 from difflib import SequenceMatcher
 
+def preprocess(name):
+    words = name.split()
+    name = name.lower().replace(" ", "").replace(".", "")
+    name = ''.join([word for word in words if len(word) > 1])
+    # print(name)
+    return name
+
 def get_ngrams(name, n=2):
-    name = name.lower().replace(" ", "")
+    name = preprocess(name)
     return [name[i:i+n] for i in range(len(name)-n+1)]
 
 def ngram_similarity(name1, name2, n=2):
     ngrams1 = get_ngrams(name1, n)
     ngrams2 = get_ngrams(name2, n)
-
     counter1 = Counter(ngrams1)
     counter2 = Counter(ngrams2)
     intersection = sum((counter1 & counter2).values())
@@ -77,7 +83,7 @@ similarity_score = ngram_similarity(name1, name2, n=2)
 print(f"Case 9: {similarity_score:.2f}")
 
 # Case 8: Missing part of name: 
-name1 = "Dheeraj Manirathnam Anna" 
+name1 = "Dheeraj M Anna" 
 name2 = "Dheeraj Anna"
 similarity_score = ngram_similarity(name1, name2, n=2)
 print(f"Case 8: {similarity_score:.2f}")
