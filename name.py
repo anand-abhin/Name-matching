@@ -2,10 +2,10 @@ from collections import Counter
 from difflib import SequenceMatcher
 
 def preprocess(name):
-    words = name.split()
     name = name.lower().replace(" ", "").replace(".", "")
+    words = name.split()
     name = ''.join([word for word in words if len(word) > 1])
-    # print(name)
+    print(name)
     return name
 
 def get_ngrams(name, n=2):
